@@ -6,28 +6,12 @@
         - @barrel.errors.full_messages.each do |msg|
           %li= msg
   .well
-    %h3 Выберите существующее вино(или создайте новое)
-    .row
-      .col-md-6
-        .form-group
-          = f.label :wine_sort_id
-          = f.select :wine_sort_id, options_for_select(WineSort.all.map{|t| [t.name, t.id]} + [[@barrel.new_record? ? "*Создание нового" : "*Редактирование"]]),
-          {include_blank: true}, {class: 'form-control'}
-
-
-
-
-    = f.fields_for :wine_sort, f.object.wine_sort || f.object.build_wine_sort do |pf|
-      %fieldset#wine_sort-fieldset{"data-content" => "#{render "wine_sort_barrel_form", pf: pf}"}
-        %div#wine_sort-fields
-
     %h3= t('forms.form.barrel')
     .row
       .col-md-4
         .form-group
           = f.label :location
           = f.text_field :location, class: 'form-control'
-
       .col-md-4
         .form-group
           = f.label :date_of_manufacture
@@ -57,7 +41,19 @@
             class: 'form-control')
             %span.input-group-addon
               %span.glyphicon.glyphicon-calendar
+    .well
+      %h4 Выберите существующее вино (или создайте новое):
+      .row
+        .col-md-6
+          .form-group
+            = f.label :wine_sort_id
+            = f.select :wine_sort_id,
+            options_for_select(WineSort.all.map{|t| ["#{t.name}, #{t.type_of_wine}, #{t.color}, [выд:#{t.barrel_extract.to_s}/#{t.bottle_extract.to_s}]", t.id]} + (@barrel.new_record? ? ["*Создание нового"] : ["*Создание нового", "*Редактирование"]),
+            @barrel.new_record? ? "*Создание нового" : "*Редактирование"),
+            {include_blank: true}, {class: 'form-control'}
+      = f.fields_for :wine_sort, f.object.wine_sort || f.object.build_wine_sort do |pf|
+        %fieldset#wine_sort-fieldset{"data-content" => "#{render "wine_sort_barrel_form", pf: pf}"}
+          %div#wine_sort-fields
 
     .actions
       = f.submit 'Сохранить', class: 'btn btn-primary', id: 'save'
-  %p
