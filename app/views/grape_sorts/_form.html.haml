@@ -1,0 +1,20 @@
+= form_for @grape_sort do |f|
+  - if @grape_sort.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@grape_sort.errors.count, "error")} prohibited this grape_sort from being saved:"
+      %ul
+        - @grape_sort.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :place_of_growth
+    = f.text_field :place_of_growth
+  .field
+    = f.label :date_of_collection
+    = f.date_select :date_of_collection
+  .actions
+    = f.submit 'Сохранить', class: 'btn btn-primary'
+    %p

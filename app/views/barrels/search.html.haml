@@ -1,0 +1,129 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.barrels.search')
+  %li
+    =link_to 'Бочки', barrels_path
+  %li
+    Информация о вине
+.page-header
+  %h1= t('headers.barrels.search')
+
+= form_tag search_barrels_path(), method: :get do
+  .well
+    %h3= t('forms.barrel_search.form.barrel')
+    .row
+      .col-md-4
+        .form-group
+        =Barrel.human_attribute_name(:location)
+        =text_field_tag 'search[location]', params['search']['location'],class: 'form-control'
+      .col-md-4
+        .form-group
+        = Barrel.human_attribute_name(:date_of_manufacture)
+        .input-group.date.datepicker
+          =text_field_tag 'search[date_of_manufacture]', params['search']['date_of_manufacture'],class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .col-md-4
+        .form-group
+        =Barrel.human_attribute_name(:date_of_completion)
+        .input-group.date.datepicker
+          =text_field_tag 'search[date_of_completion]', params['search']['date_of_completion'],class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+
+      .col-md-4
+        .form-group
+        =Barrel.human_attribute_name(:amount)
+        =text_field_tag 'search[amount]', params['search']['amount'],class: 'form-control'
+
+      .col-md-4
+        .form-group
+        = Barrel.human_attribute_name(:is_empty)
+        = select_tag 'search[is_empty]', options_for_select(Barrel.all.map{|x| [x.is_empty]}.uniq),
+          {include_blank: true, class: 'form-control'}
+
+
+    %h3= t('forms.barrel_search.form.wine_sort')
+    .row
+      .col-md-4
+        .form-group
+        = WineSort.human_attribute_name(:type_of_wine)
+        = select_tag 'search[type_of_wine]',options_for_select(WineSort.all.map{|x| [x.type_of_wine]}.uniq),
+          {include_blank: true, class: 'form-control'}
+
+      .col-md-4
+        .form-group
+        = WineSort.human_attribute_name(:name)
+        =text_field_tag 'search[wine_name]', params['search']['wine_name'], class: 'form-control'
+
+      .col-md-4
+        .form-group
+        =WineSort.human_attribute_name(:color)
+        =text_field_tag 'search[color]', params['search']['color'], class: 'form-control'
+
+      .col-md-4
+        .form-group
+        = WineSort.human_attribute_name(:barrel_extract)
+        =text_field_tag 'search[barrel_extract]', params['search']['barrel_extract'], class: 'form-control'
+
+      .col-md-4
+        .form-group
+        = WineSort.human_attribute_name(:bottle_extract)
+        =text_field_tag 'search[bottle_extract]', params['search']['bottle_extract'], class: 'form-control'
+
+
+    %h3= t('forms.barrel_search.form.relationship')
+    .row
+      .col-md-4
+        .form-group
+        = Relationship.human_attribute_name(:ratio)
+        =text_field_tag 'search[ratio]', params['search']['ratio'], class: 'form-control'
+
+
+    %h3= t('forms.barrel_search.form.grape_sort')
+    .row
+      .col-md-4
+        .form-group
+        = GrapeSort.human_attribute_name(:name)
+        =text_field_tag 'search[grape_name]', params['search']['grape_name'],
+        class: 'form-control'
+
+      .col-md-4
+        .form-group
+        = GrapeSort.human_attribute_name(:place_of_growth)
+        =text_field_tag 'search[place_of_growth]', params['search']['place_of_growth'],
+        class: 'form-control'
+
+      .col-md-4
+        .form-group
+        = GrapeSort.human_attribute_name(:date_of_collection)
+        .input-group.date.datepicker
+          =text_field_tag 'search[date_of_collection]', params['search']['date_of_collection'],class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+
+  .actions
+    =submit_tag t('buttons.search.barrel'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.barrel_search.found') + ": " + @barrels.size.to_s
+- if @barrels.size > 0
+  .well
+    .row
+      .col-md-4
+        .form-group
+          %dl
+          - @barrels.each do |barrel|
+            .well
+              %h5= "Бочка №" + barrel.id.to_s
+              %dt= Barrel.human_attribute_name(:location)
+              %dd= barrel.location
+              %dt= Barrel.human_attribute_name(:date_of_manufacture)
+              %dd= barrel.date_of_manufacture
+              %dt= Barrel.human_attribute_name(:amount)
+              %dd= barrel.amount
+              %dt= Barrel.human_attribute_name(:is_empty)
+              %dd= barrel.is_empty
+              %dt= Barrel.human_attribute_name(:date_of_completion)
+              %dd= barrel.date_of_completion
+              %dt= Barrel.human_attribute_name(:wine_sort_id)
+              %dd= barrel.wine_sort.name + ',' + barrel.wine_sort.type_of_wine

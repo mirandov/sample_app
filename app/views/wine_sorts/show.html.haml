@@ -1,0 +1,62 @@
+=breadcrumb_tag do
+  %li.active
+    ="Вино " + @wine_sort.name
+  %li
+    =link_to 'Вина', wine_sorts_path
+  %li
+    Информация о вине
+%h1= "Вино " + @wine_sort.name
+
+%dl
+  .well
+    %h3= "Инфорация о вине"
+    .row
+      .col-md-6
+        %dt= WineSort.human_attribute_name(:name)
+        %dd= @wine_sort.name
+      .col-md-6
+        %dt= WineSort.human_attribute_name(:type_of_wine)
+        %dd= @wine_sort.type_of_wine
+    .row
+      .col-md-6
+        %dt= WineSort.human_attribute_name(:color)
+        %dd= @wine_sort.color
+      .col-md-6
+        %dt= WineSort.human_attribute_name(:barrel_extract)
+        %dd= @wine_sort.barrel_extract
+    .row
+      .col-md-6
+        %dt= WineSort.human_attribute_name(:bottle_extract)
+        %dd= @wine_sort.bottle_extract
+
+
+
+
+    %dl
+    %h3= "Из какого винограда сделаног вино"
+    - grape = @wine_sort.relationships
+    - grape.each do |i|
+      .well
+        .row
+          .col-md-6
+            %dt= Relationship.human_attribute_name(:grape_sort_id)
+            %dd= i.grape_sort.name
+          .col-md-6
+            %dt= Relationship.human_attribute_name(:ratio)
+            %dd= i.ratio
+    %h3= "В какой бочке нахдится вино"
+    - barrel = @wine_sort.barrels
+    - barrel.each do |i|
+      .well
+        .row
+          .col-md-6
+            %dt= "Порядковый номер бочки "
+            %dd= "Бочка №"+i.id.to_s
+          .col-md-6
+            %dt= Barrel.human_attribute_name(:location)
+            %dd= i.location
+
+
+= link_to 'Править', edit_wine_sort_path(@wine_sort),  class: 'btn btn-primary'
+
+= link_to 'Назад', wine_sorts_path, class: 'btn btn-primary'

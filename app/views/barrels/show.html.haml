@@ -1,0 +1,72 @@
+=breadcrumb_tag do
+  %li.active
+    ="Бочка №" + @barrel.id.to_s
+  %li
+    =link_to 'Бочки', barrels_path
+  %li
+    Информация о вине
+%h1= (@barrel.wine_sort.nil? ? ("В бочке №" + @barrel.id.to_s + " вина нет! ") : ("В бочке №" + @barrel.id.to_s + " вино " + @barrel.wine_sort.name))
+
+%dl
+  .well
+    %h3= "Инфорация о бочке"
+    .row
+      .col-md-6
+        %dt= Barrel.human_attribute_name(:location)
+        %dd= @barrel.location
+      .col-md-6
+        %dt= Barrel.human_attribute_name(:date_of_manufacture)
+        %dd= @barrel.date_of_manufacture
+    .row
+      .col-md-6
+        %dt= Barrel.human_attribute_name(:amount)
+        %dd= @barrel.amount
+      .col-md-6
+        %dt= Barrel.human_attribute_name(:is_empty)
+        %dd= @barrel.is_empty
+    .row
+      .col-md-6
+        %dt= Barrel.human_attribute_name(:date_of_completion)
+        %dd= @barrel.date_of_completion
+      .col-md-6
+        %dt= Barrel.human_attribute_name(:wine_sort_id)
+        %dd= (@barrel.wine_sort.nil? ? "" : (@barrel.wine_sort.name + ',' + @barrel.wine_sort.type_of_wine))
+    .row
+      .col-md-6
+        %dt= "Порядовый номер бочки"
+        %dd= "Бочка №"+@barrel.id.to_s
+    %h3= "Информация о вине в бочке"
+    - wine = @barrel.wine_sort
+    - if wine
+      .row
+        .col-md-6
+          %dt= WineSort.human_attribute_name(:name)
+          %dd= wine.name
+        .col-md-6
+          %dt= WineSort.human_attribute_name(:type_of_wine)
+          %dd= wine.type_of_wine
+      .row
+        .col-md-6
+          %dt= WineSort.human_attribute_name(:color)
+          %dd= wine.color
+        .col-md-6
+          %dt= WineSort.human_attribute_name(:barrel_extract)
+          %dd= wine.barrel_extract
+      .row
+        .col-md-6
+          %dt= WineSort.human_attribute_name(:bottle_extract)
+          %dd= wine.bottle_extract
+      %h3= "Из какого винограда сделаног вино"
+      - r = wine.relationships
+      - r.each do |i|
+        .well
+          .row
+            .col-md-6
+              %dt= Relationship.human_attribute_name(:grape_sort_id)
+              %dd= i.grape_sort.name
+            .col-md-6
+              %dt= Relationship.human_attribute_name(:ratio)
+              %dd= i.ratio
+= link_to 'Править', edit_barrel_path(@barrel), class: 'btn btn-primary'
+
+= link_to 'Назад', barrels_path, class: 'btn btn-primary'

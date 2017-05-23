@@ -1,0 +1,17 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.wine_sorts.edit')
+  %li
+    =link_to("Вино " + @wine_sort.name, @wine_sort)
+  %li
+    =link_to 'Вина', wine_sorts_path
+  %li
+    Информация о вине
+
+
+%h1= t('headers.wine_sorts.edit')
+
+= render 'form'
+
+
+= link_to 'Назад', wine_sorts_path, class: 'btn btn-primary'

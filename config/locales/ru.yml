@@ -1,0 +1,174 @@
+ru:
+  app:
+    name: Винный погреб
+    company:
+      short_name: МПУ
+      department: Кафедра
+    users:
+      index: Список пользователей
+      new-button: Новый пользователь
+      edit: Редактирование пользователя
+      new: Создание пользователя
+    roles:
+      index: Список возможных ролей пользователей
+      new-button: Новая роль
+      edit: Редактирование роли
+      new: Создание роли
+    grape_sorts:
+      index: Список сортов винограда
+      new-button: Новый сорт винограда
+      edit: Редактирование сорта винограда
+      new: Создание сорта винограда
+    wine_sorts:
+      index: Список сортов вин
+      new-button: Новый сорт вина
+      edit: Редактирование сорта вина
+      new: Создание сорта вина
+    relationships:
+      index: Список соотношений
+      new-button: Новое соотношенеие
+      edit: Редактирование соотношенеия
+      new: Создание соотношенеия
+    barrels:
+      index: Список бочек
+      new-button: Новая бочка
+      edit: Редактирование списка бочек
+      new: Создание бочки
+  helpers:
+    submit:
+      create: Сохранить
+      submit: Сохранить
+      update: Сохранить
+    sure: Действительно удалить?
+
+
+  buttons:
+    edit: Редактировать
+    destroy: Удалить
+    show: Показать
+    confirm:
+      user: Действительно удалить пользователя?
+      role: Действительно удалить роль?
+      barrel: Действительно удалить бочку
+      wine_sort: Действительно удалить?
+      grape_sort: Действительно удалить?
+      relationship: Действительно удалить?
+    new:
+      barrel: Новая бочка
+      wine_sort: Новый сорт вина
+      grape_sort: Новый сорт винограда
+      relationship: Новое соотношение
+      user: Новый пользователь
+      role: Новая роль
+    search:
+      barrel: Найти бочки
+  headers:
+    barrels:
+     edit: Редактирование бочки
+     new: Новая бочка
+     index: Список бочек
+     search: Поиск бочек
+    wine_sorts:
+     edit: Редактирование сорта вина
+     new: Новый сорт вина
+     index: Список вин
+    grape_sorts:
+     edit: Редактирование сорт винограда
+     new: Новый сорт винограда
+     index: Список сортов виногдара
+    relationships:
+     edit: Редактирование соотношений
+     new: Новая соотношение
+     index: Список соотношений
+    users:
+      edit: Редактирование пользователя
+      new: Новый пользователь
+      index: Список пользователей
+    roles:
+      index: Список возможных ролей пользователей
+      edit: Редактирование роли
+      new: Новая роль
+  forms:
+    form:
+      grape_sort: Создайте новый сорт винограда
+      relationship: Укажите долю винограда в вине
+      barrel: Укажите характеристики бочки
+      wine_sort_new: Укажите параметры вина
+      wine_sort: Создайте новый сорт вина
+    barrel_search:
+      form:
+        barrel: По атрибутам бочек
+        wine_sort: По атрибутам вина
+        grape_sort: По атрибутам винограда
+        relationship: По атрибутам соотношений
+      found: Найденых бочек
+  views:
+    pagination:
+      first: ⇤
+      last: ⇥
+      previous: ←
+      next: →
+      truncate: …
+  activerecord:
+    models:
+      user: Пользователь
+
+      grape_sort: Сорт винограда
+      wine_sort: Сорт вина
+      relationship: Соотношение вин
+      barrel: Хранящиеся бочки
+    attributes:
+      user:
+        email: Пользовательское имя/электронная почта
+    attributes:
+      user:
+        email: Пользовательское имя/электронная почта
+        birthday: Дата рождения
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        reset_password_email_sent_at: Дата отправления письма для смены пароля
+        activation_state: Статус активации
+        activation_token_expires_at: Дата прекращения действия токена активации
+        last_login_at: Время последнего входа в систему
+        role_users: Роли
+      role:
+        name: Обозначение
+        info: Краткое название
+        full_info: Описание
+      grape_sort:
+        name: Название винограда
+        place_of_growth: Место произрастания
+        date_of_collection: Время сбора
+      wine_sort:
+        name: Название вина
+        type_of_wine: Тип
+        color: Цвет
+        barrel_extract: Время выдержки в бочках
+        bottle_extract: Время выдержки в бутылках
+      relationship:
+        ratio: Доля винограда в вине
+        grape_sort_id: Сорт винограда
+        wine_sort_id: Сорт вина
+      barrel:
+        location: Местоположение
+        date_of_manufacture: Дата изготовления
+        amount: Объём
+        is_empty: Количество вина
+        date_of_completion: Дата заполнения вином
+        wine_sort_id: Сорт вина
+    errors:
+      models:
+        person:
+          attributes:
+            snils:
+              check_sum: имеет неправильную контрольную сумму
+      # nested_start
+      role_user: &role_users
+      # nested_finish
+        role: Роль
+        role_id: Роль
+        data: Параметры
+      # nested_start
+      user/role_users:
+        <<: *role_users
+      # nested_finish

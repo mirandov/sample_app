@@ -1,0 +1,31 @@
+%h1= t('app.grape_sorts.index')
+
+%table.table.table-hover.table-striped.center
+  %caption
+    .pull-right
+      = link_to t('app.grape_sorts.new-button'), new_grape_sort_path, class: 'btn btn-primary'
+  %thead
+    %tr
+      %th= GrapeSort.human_attribute_name(:name)
+      %th= GrapeSort.human_attribute_name(:place_of_growth)
+      %th= GrapeSort.human_attribute_name(:date_of_collection)
+      %th.p50
+      %th.p50
+      %th.p50
+
+
+  %tbody
+    - @grape_sorts.each do |grape_sort|
+      %tr
+        %td= grape_sort.name
+        %td= grape_sort.place_of_growth
+        %td= grape_sort.date_of_collection
+        %td
+          = link_to grape_sort, class: 'btn btn-success' do
+            = fa_icon :eye
+        %td
+          = link_to edit_grape_sort_path(grape_sort), class: 'btn btn-info' do
+            = fa_icon :edit
+        %td
+          = link_to grape_sort, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+            = fa_icon :times

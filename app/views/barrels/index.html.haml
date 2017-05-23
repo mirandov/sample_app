@@ -1,0 +1,50 @@
+=breadcrumb_tag do
+  %li.active
+    Бочки
+  %li
+    Информация о вине
+.page-header
+  %h1= t('headers.barrels.index')
+
+.row
+
+  = link_to new_barrel_path, class: 'btn btn-success' do
+    = fa_icon :plus
+    = t('buttons.new.barrel')
+  = link_to search_barrels_path, {class: 'btn btn-primary'} do
+    = fa_icon 'search'
+    = t('buttons.search.barrel')
+
+.row
+  - @barrels.each do |barrel|
+    .col-xs-6
+      .well.center
+        %dl
+          %dt= "Порядковый номер бочки"
+          %dd= barrel.id
+          %dt= Barrel.human_attribute_name(:location)
+          %dd= barrel.location
+          %dt= Barrel.human_attribute_name(:date_of_manufacture)
+          %dd= barrel.date_of_manufacture
+          %dt= Barrel.human_attribute_name(:amount)
+          %dd= barrel.amount
+          %dt= Barrel.human_attribute_name(:is_empty)
+          %dd= barrel.is_empty
+          %dt= Barrel.human_attribute_name(:date_of_completion)
+          %dd= barrel.date_of_completion
+          %dt= Barrel.human_attribute_name(:wine_sort_id)
+          %dd= barrel.wine_sort.nil? ? '-' : (barrel.wine_sort.name + ',' + barrel.wine_sort.type_of_wine)
+          %dd
+
+            = link_to barrel, class: 'btn btn-warning' do
+              = fa_icon :eye
+              = t('buttons.show')
+
+            = link_to edit_barrel_path(barrel), class: 'btn btn-info' do
+              = fa_icon :edit
+              = t('buttons.edit')
+            = link_to barrel, :method => :delete,
+            :data => { :confirm => t('buttons.confirm.barrel') },
+            class: 'btn btn-danger' do
+              = fa_icon :times
+              = t('buttons.destroy')

@@ -1,0 +1,27 @@
+-# nested_start
+.col-md-6
+  %div{class: 'panel panel-'+ (i.kind_of?(Integer) ? 'success' : 'info')}
+    .panel-heading
+      Сорт
+      = i
+      %span.toright
+        -# Кнопка для удаления связи роль-пользователь. См. role_users_helper
+        = link_to_remove_grape_sort(pf)
+      .clearfix
+    .panel-body
+      .row
+        .col-md-4
+          .form-group
+            = pf.label :ratio
+            = pf.text_field :ratio, {class: 'form-control'}
+      .row
+        .col-md-4
+          .form-group
+            = pf.label :grape_sort_id
+            = pf.select :grape_sort_id, options_for_select(GrapeSort.all.map{|t| [t.name + ' ' + t.place_of_growth + ' ' + t.date_of_collection.to_s, t.id]}),
+            {include_blank: true}, {class: 'form-control select_grape', id: 'gsid'}
+
+      = pf.fields_for :grape_sort, pf.object.grape_sort || pf.object.build_grape_sort do |qf|
+        %fieldset#grape_sort-fieldset{"data-content" => "#{render "grape_sort_relationships_wine_sort_form", qf: qf}"}
+          %div#grape_sort-fields
+      .row

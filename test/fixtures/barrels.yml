@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  date_of_manufacture: 2017-04-26
+  amount: 1.5
+  is_empty: MyString
+  date_of_completion: 2017-04-26
+  wine_sort_id: 
+
+two:
+  location: MyString
+  date_of_manufacture: 2017-04-26
+  amount: 1.5
+  is_empty: MyString
+  date_of_completion: 2017-04-26
+  wine_sort_id: 

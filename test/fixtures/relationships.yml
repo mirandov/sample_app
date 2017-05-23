@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ratio: MyString
+  grape_sort_id: 
+  wine_sort_id: 
+
+two:
+  ratio: MyString
+  grape_sort_id: 
+  wine_sort_id: 

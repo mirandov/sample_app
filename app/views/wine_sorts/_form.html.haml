@@ -1,0 +1,57 @@
+= form_for @wine_sort do |f|
+  - if @wine_sort.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@wine_sort.errors.count, "error")} prohibited this wine_sort from being saved:"
+      %ul
+        - @wine_sort.errors.full_messages.each do |msg|
+          %li= msg
+
+
+
+  .well
+    %h3= t('forms.form.wine_sort_new')
+    .row
+      .col-md-4
+        .form-group
+          = f.label :name
+          = f.text_field :name, {class: 'form-control'}
+
+      .col-md-4
+        .form-group
+          = f.label :type_of_wine
+          = f.select :type_of_wine,
+          ["Сухое","Полусухое","Полусладкое","Сладкое","Ликёрное"],{include_blank: true}, {class: 'form-control'}
+    .row
+      .col-md-4
+        .form-group
+          = f.label :color
+          = f.text_field :color, {class: 'form-control'}
+
+      .col-md-4
+        .form-group
+          = f.label :barrel_extract
+          = f.number_field :barrel_extract, {class: 'form-control'}
+    .row
+      .col-md-4
+        .form-group
+          = f.label :bottle_extract
+          = f.number_field :bottle_extract, {class: 'form-control'}
+          = f.error_messages_for(:bottle_extract)
+
+  -# .actions
+  -#   = f.submit 'Сохранить', class: 'btn btn-primary', id: 'save'
+
+  .row.bottom20
+    .col-md-12
+      = link_to_add_grape_sort(f, f.object)
+  - i = 0
+  = f.fields_for(:relationships) do |pf|
+    -# Скрытое поле - id связи роль-пользователь. Иначе все связи будут
+    -# новыми
+    = pf.hidden_field(:id)
+    -# Чтобы не повторять код, выделяем его часть в отдельный файл
+    = render('wine_sorts/relationships_wine_sort_form', pf: pf, i: i+1)
+  - # nested_finish
+  .row
+  .actions
+    = f.submit 'Сохранить', class: 'btn btn-primary', id: 'save'

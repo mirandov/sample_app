@@ -1,0 +1,63 @@
+= form_for @barrel do |f|
+  - if @barrel.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@barrel.errors.count, "error")} prohibited this barrel from being saved:"
+      %ul
+        - @barrel.errors.full_messages.each do |msg|
+          %li= msg
+  .well
+    %h3 Выберите существующее вино(или создайте новое)
+    .row
+      .col-md-6
+        .form-group
+          = f.label :wine_sort_id
+          = f.select :wine_sort_id, options_for_select(WineSort.all.map{|t| [t.name, t.id]} + [[@barrel.new_record? ? "*Создание нового" : "*Редактирование"]]),
+          {include_blank: true}, {class: 'form-control'}
+
+
+
+
+    = f.fields_for :wine_sort, f.object.wine_sort || f.object.build_wine_sort do |pf|
+      %fieldset#wine_sort-fieldset{"data-content" => "#{render "wine_sort_barrel_form", pf: pf}"}
+        %div#wine_sort-fields
+
+    %h3= t('forms.form.barrel')
+    .row
+      .col-md-4
+        .form-group
+          = f.label :location
+          = f.text_field :location, class: 'form-control'
+
+      .col-md-4
+        .form-group
+          = f.label :date_of_manufacture
+          .input-group.date.datepicker
+            = f.text_field(:date_of_manufacture, value: lnil(f.object.date_of_manufacture),
+            class: 'form-control')
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+    .row
+      .col-md-4
+        .form-group
+          = f.label :amount
+          = f.text_field :amount, class: 'form-control'
+
+
+      .col-md-4
+        .form-group
+          = f.label :is_empty
+          = f.select :is_empty, ["Пустая", "Не пустая"],
+          {include_blank: true}, {class: 'form-control'}
+    .row
+      .col-md-4
+        .form-group
+          = f.label :date_of_completion
+          .input-group.date.datepicker
+            = f.text_field(:date_of_completion, value: lnil(f.object.date_of_completion),
+            class: 'form-control')
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+
+    .actions
+      = f.submit 'Сохранить', class: 'btn btn-primary', id: 'save'
+  %p

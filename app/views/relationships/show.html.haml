@@ -1,0 +1,14 @@
+%h1= "В вине " +  @relationship.wine_sort.name + " доля винограда " + @relationship.grape_sort.name + " составляет " + @relationship.ratio
+
+%dl
+  %dt= Relationship.human_attribute_name(:ratio)
+  %dd= @relationship.ratio
+  %dt= Relationship.human_attribute_name(:grape_sort_id)
+  %dd= @relationship.grape_sort.name + "," + @relationship.grape_sort.place_of_growth
+  %dt= Relationship.human_attribute_name(:wine_sort_id)
+  %dd= @relationship.wine_sort.name + "," + @relationship.wine_sort.type_of_wine
+
+
+= link_to 'Показать', edit_relationship_path(@relationship), class: 'btn btn-primary'
+
+= link_to 'Назад', relationships_path, class: 'btn btn-primary'

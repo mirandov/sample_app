@@ -1,0 +1,16 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.barrels.edit')
+  %li
+    =link_to("Бочка №" + @barrel.id.to_s, @barrel)
+  %li
+    =link_to 'Бочки', barrels_path
+  %li
+    Информация о вине
+
+%h1= t('headers.barrels.edit')
+
+= render 'form'
+
+
+= link_to 'Назад', barrels_path, class: 'btn btn-primary'

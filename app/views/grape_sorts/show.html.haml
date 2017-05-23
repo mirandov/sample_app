@@ -1,0 +1,15 @@
+%h1= @grape_sort.name
+%dl
+  %dt= GrapeSort.human_attribute_name(:name)
+  %dd= @grape_sort.name
+
+  %dt= GrapeSort.human_attribute_name(:place_of_growth)
+  %dd= @grape_sort.place_of_growth
+
+  %dt= GrapeSort.human_attribute_name(:date_of_collection)
+  %dd= @grape_sort.date_of_collection
+
+
+= link_to 'Показать', edit_grape_sort_path(@grape_sort), class: 'btn btn-primary'
+
+= link_to 'Назад', grape_sorts_path, class: 'btn btn-primary'

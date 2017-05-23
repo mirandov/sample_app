@@ -1,0 +1,30 @@
+%h1= t('app.relationships.index')
+
+%table.table.table-hover.table-striped.center
+  %caption
+    .pull-right
+      = link_to t('app.relationships.new-button'), new_relationship_path, class: 'btn btn-primary'
+  %thead
+    %tr
+      %th= Relationship.human_attribute_name(:ratio)
+      %th= Relationship.human_attribute_name(:grape_sort_id)
+      %th= Relationship.human_attribute_name(:wine_sort_id)
+      %th.p50
+      %th.p50
+      %th.p50
+
+  %tbody
+    - @relationships.each do |relationship|
+      %tr
+        %td= relationship.ratio
+        %td= relationship.grape_sort.name + ',' + relationship.grape_sort.place_of_growth
+        %td= relationship.wine_sort.name + ',' + relationship.wine_sort.type_of_wine
+        %td
+          = link_to relationship, class: 'btn btn-success' do
+            = fa_icon :eye
+        %td
+          = link_to edit_relationship_path(relationship), class: 'btn btn-info' do
+            = fa_icon :edit
+        %td
+          = link_to relationship, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+            = fa_icon :times
