@@ -9,8 +9,10 @@ class GrapeSort < ActiveRecord::Base
   validate :date_of_collection_cannot_be_in_the_future
 
   def date_of_collection_cannot_be_in_the_future
-    if date_of_collection > Date.today
-      errors.add(:date_of_collection, "не может быть установленна будущим временем")
+    unless date_of_collection.nil?
+      if date_of_collection > Date.today
+        errors.add(:date_of_collection, "не может быть установленна будущим временем")
+      end
     end
   end
 

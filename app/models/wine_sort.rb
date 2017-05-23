@@ -12,7 +12,4 @@ class WineSort < ActiveRecord::Base
 
   accepts_nested_attributes_for :relationships, allow_destroy: true
 
-  # def data=(value)
-  #   self[:data] = {data: value}
-  # end
 end
