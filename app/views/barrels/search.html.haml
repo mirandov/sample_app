@@ -126,4 +126,4 @@
               %dt= Barrel.human_attribute_name(:date_of_completion)
               %dd= barrel.date_of_completion
               %dt= Barrel.human_attribute_name(:wine_sort_id)
-              %dd= barrel.wine_sort.name + ',' + barrel.wine_sort.type_of_wine
+              %dd= (barrel.wine_sort.nil?) ? ('-') : (barrel.wine_sort.name + ',' + barrel.wine_sort.type_of_wine)
