@@ -12,11 +12,9 @@ insert_form = ->
   $('.select_form').each ->
     f = $(".grape_sort-fieldset", this).attr("data-content")
     $('select', this).change -> insert_form()
-    # panel = $('.input-group.date.datepicker', this)
-    # window.datepicker_activation_by_item(panel)
-
     if ($('select', this).val() == '*Создание нового')
       $('.grape_sort-fields', this).html(f)
+      $('.grape_sort-fields input', this).val('')
       datepicker_activation()
     else if ($('select', this).val() == '*Редактирование')
       $('.grape_sort-fields', this).html(f)
