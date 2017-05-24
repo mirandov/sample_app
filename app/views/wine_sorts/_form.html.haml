@@ -5,9 +5,6 @@
       %ul
         - @wine_sort.errors.full_messages.each do |msg|
           %li= msg
-
-
-
   .well
     %h3= t('forms.form.wine_sort_new')
     .row
@@ -37,7 +34,6 @@
           = f.label :bottle_extract
           = f.number_field :bottle_extract, {class: 'form-control'}
           = f.error_messages_for(:bottle_extract)
-
   .row.bottom20
     .col-md-12
       = f.submit 'Сохранить', class: 'btn btn-primary', id: 'save'

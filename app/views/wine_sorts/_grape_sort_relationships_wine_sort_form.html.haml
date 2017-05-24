@@ -1,15 +1,14 @@
 %h3= t('forms.form.grape_sort')
 .row
-  .col-md-4
+  .col-md-12
     .form-group
       = qf.label :name
       = qf.text_field :name, {class: 'form-control'}
-  .col-md-4
+  .col-md-12
     .form-group
       = qf.label :place_of_growth
       = qf.text_field :place_of_growth, {class: 'form-control'}
-.row
-  .col-md-4
+  .col-md-12
     .form-group
       = qf.label :date_of_collection
       .input-group.date.datepicker

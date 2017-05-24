@@ -1,7 +1,6 @@
 class WineSort < ActiveRecord::Base
   has_many :relationships, dependent: :destroy, inverse_of: :wine_sort
   has_many :barrels, dependent: :destroy
-  has_many :grape_sorts, through: :relationships
 
   validates :name, :type_of_wine, :color, :barrel_extract, :bottle_extract, presence: true
   validates :name, :type_of_wine, length:{in: 0..64}
@@ -11,5 +10,8 @@ class WineSort < ActiveRecord::Base
   validates :name, uniqueness: {scope: [:type_of_wine, :color, :barrel_extract, :bottle_extract]}
 
   accepts_nested_attributes_for :relationships, allow_destroy: true
+
+# 
+  has_many :grape_sorts, through: :relationships
 
 end

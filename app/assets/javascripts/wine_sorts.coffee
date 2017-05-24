@@ -1,19 +1,34 @@
-# save_form = ->
-#   if ($('#wine_sort_relationships_attributes_0_grape_sort_id').val()   == '*Создание нового')
-#     $('#wine_sort_relationships_attributes_0_grape_sort_id').remove()
-#     $("#wine_sort_relationships_attributes_0_grape_sort_attributes_id").remove()
-#   else if ($('#wine_sort_relationships_attributes_0_grape_sort_id').val() == '*Редактирование')
-#     $('#wine_sort_relationships_attributes_0_grape_sort_id').remove()
-#
-# insert_form = ->
-#   # f = $("#gsid").attr("data-content")
-#   if ($('#gsid').val() == '')
-#     $("#grape_sort-fields").html("Выбран существующий сорт виногрда")
-#
-# ready = ->
-#   insert_form()
-#   $("gsid").change -> insert_form()
-#   # $('#save').on 'click', save_form
-#
-# $(document).ready ready
-# $(document).on 'page:load', ready
+save_form = ->
+  $('.select_form').each ->
+    if ($('select', this).val() == '*Создание нового')
+      $('select', this).remove()
+      $('select', this).next().remove()
+    else if ($('select', this).val() == '*Редактирование')
+      $('select', this).remove()
+    else
+      $('select', this).next().remove()
+
+insert_form = ->
+  $('.select_form').each ->
+    f = $(".grape_sort-fieldset", this).attr("data-content")
+    $('select', this).change -> insert_form()
+    # panel = $('.input-group.date.datepicker', this)
+    # window.datepicker_activation_by_item(panel)
+
+    if ($('select', this).val() == '*Создание нового')
+      $('.grape_sort-fields', this).html(f)
+      datepicker_activation()
+    else if ($('select', this).val() == '*Редактирование')
+      $('.grape_sort-fields', this).html(f)
+      datepicker_activation()
+    else
+      $('.grape_sort-fields', this).html("Выбран существующий сорт винограда")
+
+ready = ->
+  insert_form()
+  $("#add_grape_sort_link").click -> insert_form()
+  $('#save').on 'click', save_form
+
+
+$(document).ready ready
+$(document).on 'page:load', ready

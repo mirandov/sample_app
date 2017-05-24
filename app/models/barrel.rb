@@ -78,12 +78,6 @@ class Barrel < ActiveRecord::Base
      if params['date_of_collection'].present?
        result = result.where(grape_sorts: {date_of_collection: params['date_of_collection']})
      end
-
-
      result.all
   end
-
-  # def data=(value)
-  #  self[:data] = {data: value}
-  # end
 end
