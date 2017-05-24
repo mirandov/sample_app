@@ -80,7 +80,10 @@ class WineSortsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wine_sort_params
-      params.require(:wine_sort).permit(:name, :type_of_wine, :color, :barrel_extract,
-      :bottle_extract, {relationships_attributes: [:_destroy, :id, :ratio, :grape_sort_id]})
+      params.require(:wine_sort).permit(:name, :type_of_wine, :color, :barrel_extract, :bottle_extract,
+        {relationships_attributes: [:_destroy, :id, :ratio,
+          :grape_sort_id, {grape_sort_attributes: [:_destroy, :id, :name, :place_of_growth, :date_of_collection]}
+        ]}
+      )
     end
 end
